@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name: mysql
-        image: mysql:latest
+        image: docker.io/okokokmohit/testapp-repo-mysql:latest
 
         envFrom:
         - secretRef:
