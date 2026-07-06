@@ -115,3 +115,267 @@ kubectl get ingress
 ```
 
 - 📁 Organized Kubernetes manifests for easier deployment and maintenance.
+
+---
+
+# 🛠️ Technology Stack
+
+| Category | Technologies |
+|-----------|--------------|
+| ☁️ Cloud Platform | Amazon Web Services (AWS) |
+| ☸️ Container Orchestration | Kubernetes (Amazon EKS) |
+| 🐳 Containerization | Docker |
+| 🌐 Ingress | NGINX Ingress Controller |
+| ⚖️ Load Balancing | AWS Load Balancer |
+| 🖥️ Frontend | React, Nginx |
+| ⚙️ Backend | Node.js |
+| 🗄️ Database | MySQL |
+| 💾 Storage | Persistent Volume (PV), Persistent Volume Claim (PVC) |
+| 🔐 Configuration | ConfigMaps, Secrets |
+| 📈 Auto Scaling | Horizontal Pod Autoscaler (HPA) |
+| 🖥️ Operating System | Ubuntu Linux |
+| 🔧 CLI Tools | kubectl, eksctl, Docker CLI, AWS CLI |
+
+---
+
+# 📂 Project Structure
+
+```text
+eks-3tier-web-application
+│
+├── backend/
+│   ├── Dockerfile
+│   ├── package.json
+│   ├── server.js
+│   └── ...
+│
+├── frontend/
+│   ├── Dockerfile
+│   ├── nginx.conf
+│   ├── package.json
+│   ├── public/
+│   ├── src/
+│   └── ...
+│
+├── kubernetes/
+│   ├── backend-deployment.yaml
+│   ├── backend-service.yaml
+│   ├── frontend-deployment.yaml
+│   ├── frontend-service.yaml
+│   ├── mysql-statefulset.yaml
+│   ├── mysql-service.yaml
+│   ├── mysql-secret.yaml
+│   ├── configmap.yaml
+│   ├── persistent-volume.yaml
+│   ├── persistent-volume-claim.yaml
+│   ├── ingress.yaml
+│   ├── frontend-hpa.yaml
+│   ├── backend-hpa.yaml
+│   └── namespace.yaml
+│
+├── scripts/
+│   ├── deploy.sh
+│   └── cleanup.sh
+│
+├── assets/
+│   ├── architecture.png
+│   ├── workflow.png
+│   └── screenshots/
+│
+└── README.md
+```
+
+---
+
+## 📁 Directory Overview
+
+| Directory | Description |
+|------------|-------------|
+| `backend/` | Node.js backend application and Docker configuration |
+| `frontend/` | React frontend application served using Nginx |
+| `kubernetes/` | Kubernetes manifest files used for deployment |
+| `scripts/` | Deployment and cleanup automation scripts |
+| `assets/` | Architecture diagrams, workflow images, and screenshots |
+| `README.md` | Complete project documentation |
+
+---
+
+# ☸️ Kubernetes Resources Used
+
+| Kubernetes Resource | Purpose |
+|---------------------|---------|
+| **Namespace** | Isolated application resources within the Kubernetes cluster. |
+| **Deployment** | Managed stateless frontend and backend application pods with rolling updates and self-healing. |
+| **Service (ClusterIP)** | Enabled internal communication between frontend, backend, and MySQL components. |
+| **Service (LoadBalancer)** | Exposed the application externally through AWS Load Balancer. |
+| **Ingress** | Managed HTTP request routing to application services using NGINX Ingress Controller. |
+| **StatefulSet** | Deployed MySQL with stable pod identity and persistent storage. |
+| **Persistent Volume (PV)** | Provided persistent storage for the MySQL database. |
+| **Persistent Volume Claim (PVC)** | Requested storage resources for database persistence. |
+| **ConfigMap** | Stored non-sensitive application configuration. |
+| **Secret** | Stored sensitive database credentials securely. |
+| **Horizontal Pod Autoscaler (HPA)** | Automatically scaled frontend and backend pods based on resource utilization. |
+| **Resource Requests & Limits** | Allocated CPU and memory resources efficiently for containers. |
+
+---
+
+## 🔄 Application Deployment Flow
+
+```text
+Namespace
+     │
+     ▼
+Secrets & ConfigMaps
+     │
+     ▼
+Persistent Volume
+     │
+     ▼
+Persistent Volume Claim
+     │
+     ▼
+MySQL StatefulSet
+     │
+     ▼
+Backend Deployment
+     │
+     ▼
+Frontend Deployment
+     │
+     ▼
+Services
+     │
+     ▼
+Ingress
+     │
+     ▼
+AWS Load Balancer
+     │
+     ▼
+Users
+```
+---
+
+# 🚀 Deployment Guide
+
+This project includes deployment automation scripts to simplify the provisioning process and reduce manual Kubernetes operations.
+
+---
+
+## 📋 Prerequisites
+
+Before deploying the application, ensure the following tools are installed and configured.
+
+| Tool | Purpose |
+|------|---------|
+| AWS CLI | Connect to AWS Account |
+| kubectl | Kubernetes CLI |
+| eksctl | Amazon EKS Management |
+| Docker | Container Management |
+| Docker Hub | Container Registry |
+
+---
+
+## ☁️ Configure AWS Credentials
+
+```bash
+aws configure
+```
+
+Verify access:
+
+```bash
+aws sts get-caller-identity
+```
+
+---
+
+## ☸️ Verify EKS Cluster
+
+```bash
+kubectl get nodes
+```
+
+Expected output
+
+```text
+STATUS   Ready
+```
+
+---
+
+## 📂 Clone Repository
+
+```bash
+git clone https://github.com/mohitgupta0829-st/eks-3tier-web-application.git
+
+cd eks-3tier-web-application
+```
+
+---
+
+# ⚡ Automated Deployment
+
+Instead of applying each Kubernetes manifest individually, this project provides deployment scripts to automate the process.
+
+Grant execution permission.
+
+```bash
+chmod +x scripts/deploy.sh
+```
+
+Run deployment.
+
+```bash
+./scripts/deploy.sh
+```
+
+The deployment script automatically performs the following operations:
+
+- Creates Namespace
+- Creates Kubernetes Secrets
+- Creates ConfigMaps
+- Deploys Persistent Volumes
+- Deploys Persistent Volume Claims
+- Deploys MySQL StatefulSet
+- Deploys Backend Deployment & Service
+- Deploys Frontend Deployment & Service
+- Deploys NGINX Ingress
+- Deploys Horizontal Pod Autoscalers
+
+---
+
+# 🧹 Cleanup
+
+To remove all deployed Kubernetes resources:
+
+```bash
+chmod +x scripts/cleanup.sh
+
+./scripts/cleanup.sh
+```
+
+---
+
+# ✅ Verify Deployment
+
+```bash
+kubectl get pods
+
+kubectl get svc
+
+kubectl get ingress
+
+kubectl get hpa
+
+kubectl get pvc
+```
+
+The application is considered successfully deployed when:
+
+- All Pods are in **Running** state
+- Services are successfully created
+- Ingress receives an external address
+- MySQL StatefulSet is healthy
+- Persistent Volume Claim is **Bound**
+- Horizontal Pod Autoscalers are active
