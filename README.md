@@ -185,20 +185,7 @@ eks-3tier-web-application
 └── README.md
 ```
 
----
 
-## 📁 Directory Overview
-
-| Directory | Description |
-|------------|-------------|
-| `backend/` | Node.js backend application and Docker configuration |
-| `frontend/` | React frontend application served using Nginx |
-| `kubernetes/` | Kubernetes manifest files used for deployment |
-| `scripts/` | Deployment and cleanup automation scripts |
-| `assets/` | Architecture diagrams, workflow images, and screenshots |
-| `README.md` | Complete project documentation |
-
----
 
 # ☸️ Kubernetes Resources Used
 
@@ -379,3 +366,113 @@ The application is considered successfully deployed when:
 - MySQL StatefulSet is healthy
 - Persistent Volume Claim is **Bound**
 - Horizontal Pod Autoscalers are active
+
+---
+
+# 📸 Project Screenshots
+
+The following screenshots demonstrate the deployment process and successful execution of the application on Amazon Elastic Kubernetes Service (EKS).
+
+> **Note**
+>
+> The application used in this project is a sample application deployed to demonstrate Kubernetes and DevOps concepts. The screenshots below focus on the infrastructure and deployment rather than the application itself.
+
+---
+
+## ☁️ Amazon EKS Cluster
+
+<p align="center">
+<img src="./assets/screenshots/eks-cluster.png" width="90%">
+</p>
+
+---
+
+## 🖥️ Running Kubernetes Pods
+
+<p align="center">
+<img src="./assets/screenshots/pods.png" width="90%">
+</p>
+
+---
+
+## 📊 Horizontal Pod Autoscaler
+
+<p align="center">
+<img src="./assets/screenshots/hpa.png" width="90%">
+</p>
+
+---
+
+## 💾 Persistent Storage
+
+<p align="center">
+<img src="./assets/screenshots/storage.png" width="90%">
+</p>
+
+---
+
+## 🌍 Deployed Application
+
+<p align="center">
+<img src="./assets/screenshots/application.png" width="90%">
+</p>
+
+---
+
+# 💡 Challenges & Solutions
+
+| Challenge | Solution |
+|-----------|----------|
+| Database connectivity between backend and MySQL | Configured Kubernetes Services and validated internal DNS resolution. |
+| Persistent database storage | Implemented Persistent Volumes (PV) and Persistent Volume Claims (PVC). |
+| Managing sensitive credentials | Used Kubernetes Secrets instead of hardcoding values. |
+| External application access | Configured NGINX Ingress with AWS Load Balancer. |
+| Application scalability | Implemented Horizontal Pod Autoscalers (HPA). |
+| Pod troubleshooting | Used `kubectl logs`, `describe`, `events`, and rollout commands to identify and resolve deployment issues. |
+
+---
+
+# 🎯 Key Learnings
+
+Through this project, I gained practical experience with:
+
+- Deploying containerized applications on Amazon EKS
+- Designing a three-tier architecture using Kubernetes
+- Managing application configuration with ConfigMaps and Secrets
+- Implementing persistent storage using PV and PVC
+- Deploying stateful workloads with StatefulSets
+- Configuring Ingress for external traffic routing
+- Scaling applications using Horizontal Pod Autoscaler
+- Troubleshooting Kubernetes deployments using `kubectl`
+
+---
+
+# 🚀 Future Improvements
+
+Planned enhancements for this project include:
+
+- Integrating CI/CD using GitHub Actions or Jenkins
+- Deploying applications with Helm Charts
+- Implementing monitoring using Prometheus and Grafana
+- Adding centralized logging with the ELK Stack
+- Managing DNS using ExternalDNS
+- Securing workloads with cert-manager and TLS certificates
+
+---
+
+# 👨‍💻 Author
+
+**Mohit Gupta**
+
+DevOps & Cloud Enthusiast
+
+- GitHub: https://github.com/mohitgupta0829-st
+- LinkedIn: https://linkedin.com/in/mohitgupta-dev28
+
+---
+
+<p align="center">
+
+⭐ If you found this project helpful, consider giving it a star!
+
+</p>
